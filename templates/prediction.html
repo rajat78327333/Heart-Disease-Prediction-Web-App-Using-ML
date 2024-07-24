@@ -1,0 +1,439 @@
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html lang="en">&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;  <meta charset="UTF-8">&ndash;&gt;-->
+<!--&lt;!&ndash;  <meta name="viewport" content="width=device-width, initial-scale=1.0">&ndash;&gt;-->
+<!--&lt;!&ndash;  <title>Heart Disease Risk Assessment</title>&ndash;&gt;-->
+<!--&lt;!&ndash;  <style>&ndash;&gt;-->
+<!--&lt;!&ndash;    /* Resetting default margin and padding */&ndash;&gt;-->
+<!--&lt;!&ndash;    * {&ndash;&gt;-->
+<!--&lt;!&ndash;      margin: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;      padding: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;      box-sizing: border-box;&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+
+<!--&lt;!&ndash;    /* Body and HTML styles */&ndash;&gt;-->
+<!--&lt;!&ndash;    body, html {&ndash;&gt;-->
+<!--&lt;!&ndash;      height: 100%;&ndash;&gt;-->
+<!--&lt;!&ndash;      font-family: Arial, sans-serif;&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+
+<!--&lt;!&ndash;    /* Background image and positioning */&ndash;&gt;-->
+<!--&lt;!&ndash;    .bg {&ndash;&gt;-->
+<!--&lt;!&ndash;    background-image: url("static/back.png");&ndash;&gt;-->
+<!--&lt;!&ndash;    height: 80%;&ndash;&gt;-->
+<!--&lt;!&ndash;    background-position: center;&ndash;&gt;-->
+<!--&lt;!&ndash;    background-repeat: no-repeat;&ndash;&gt;-->
+<!--&lt;!&ndash;    /* background-size: cover; */&ndash;&gt;-->
+<!--&lt;!&ndash;    display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;    flex-direction: column;&ndash;&gt;-->
+<!--&lt;!&ndash;    align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;    justify-content: center;&ndash;&gt;-->
+<!--&lt;!&ndash;    text-align: center;&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+
+<!--&lt;!&ndash;    /* Heading styles */&ndash;&gt;-->
+<!--&lt;!&ndash;    h1 {&ndash;&gt;-->
+<!--&lt;!&ndash;     color: #0e0e3f;&ndash;&gt;-->
+<!--&lt;!&ndash;    font-weight: 500;&ndash;&gt;-->
+<!--&lt;!&ndash;    font-size: 36px;&ndash;&gt;-->
+<!--&lt;!&ndash;    margin-bottom: 0px;&ndash;&gt;-->
+<!--&lt;!&ndash;    margin-right: 700px;&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+
+<!--&lt;!&ndash;    /* Subheading styles */&ndash;&gt;-->
+<!--&lt;!&ndash;    h2 {&ndash;&gt;-->
+<!--&lt;!&ndash;      color: #d2143a;&ndash;&gt;-->
+<!--&lt;!&ndash;      font-size: 72px;&ndash;&gt;-->
+<!--&lt;!&ndash;      margin-top: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      margin-bottom: 40px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;          margin-bottom: 0px;&ndash;&gt;-->
+<!--&lt;!&ndash;    margin-right: 700px;&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+
+<!--&lt;!&ndash;    /* Media query for responsiveness */&ndash;&gt;-->
+<!--&lt;!&ndash;    @media (max-width: 768px) {&ndash;&gt;-->
+<!--&lt;!&ndash;      h1 {&ndash;&gt;-->
+<!--&lt;!&ndash;        font-size: 24px;&ndash;&gt;-->
+<!--&lt;!&ndash;      }&ndash;&gt;-->
+<!--&lt;!&ndash;      h2 {&ndash;&gt;-->
+<!--&lt;!&ndash;        font-size: 48px;&ndash;&gt;-->
+<!--&lt;!&ndash;      }&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+<!--&lt;!&ndash;  </style>&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<body>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;  <div class="bg">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash; <p style="font-weight: 700;margin-right: 720px;margin-bottom: 12px;"><a href="/diet">Heart-Healthy Diet Plans</a></p>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <h1>{{name}},<br> your heart disease risk rate is:</h1>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <h2>{{heart_risk_rate}}</h2>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    {% if specialist_contact %}&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      <h1>Please Contact a heart specialist</h1><br>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      <p style="margin-right: 720px;">Specialist's contact details: XXX-XXX-XXXX</p>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;    {% else %}&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      <h1>continue yoga or gym center</h1> <br>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      <p style="margin-right: 720px;">Center's details: Yoga Center, ABC Street, XYZ City</p>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;    {% endif %}&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</body>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+<!--&lt;!&ndash;  <div class="bg">&ndash;&gt;-->
+<!--&lt;!&ndash;    <h1>{{name}},<br> your heart disease risk rate is:</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;    <h2>{{heart_risk_rate}}</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;    {% if specialist_contact %}&ndash;&gt;-->
+<!--&lt;!&ndash;      <h1>Contact a heart specialist</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;      <table>&ndash;&gt;-->
+<!--&lt;!&ndash;        <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;          <th>Specialist Name</th>&ndash;&gt;-->
+<!--&lt;!&ndash;          <th>Location</th>&ndash;&gt;-->
+<!--&lt;!&ndash;          <th>Contact Number</th>&ndash;&gt;-->
+<!--&lt;!&ndash;          <th>Email</th>&ndash;&gt;-->
+<!--&lt;!&ndash;        </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;        <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;          <td>Dr. John Smith</td>&ndash;&gt;-->
+<!--&lt;!&ndash;          <td>Cardiology Center, Main Street</td>&ndash;&gt;-->
+<!--&lt;!&ndash;          <td>XXX-XXX-XXXX</td>&ndash;&gt;-->
+<!--&lt;!&ndash;          <td>john.smith@example.com</td>&ndash;&gt;-->
+<!--&lt;!&ndash;        </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;        &lt;!&ndash; Add more rows if needed &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      </table>&ndash;&gt;-->
+<!--&lt;!&ndash;    {% else %}&ndash;&gt;-->
+<!--&lt;!&ndash;      <h1>Visit a yoga or gym center</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;      <table>&ndash;&gt;-->
+<!--&lt;!&ndash;        <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;          <th>Center Name</th>&ndash;&gt;-->
+<!--&lt;!&ndash;          <th>Location</th>&ndash;&gt;-->
+<!--&lt;!&ndash;          <th>Contact Number</th>&ndash;&gt;-->
+<!--&lt;!&ndash;          <th>Website</th>&ndash;&gt;-->
+<!--&lt;!&ndash;        </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;        <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;          <td>Yoga Zen</td>&ndash;&gt;-->
+<!--&lt;!&ndash;          <td>Wellness Street, City Center</td>&ndash;&gt;-->
+<!--&lt;!&ndash;          <td>YYY-YYY-YYYY</td>&ndash;&gt;-->
+<!--&lt;!&ndash;          <td><a href="https://yogazen.example.com">yogazen.example.com</a></td>&ndash;&gt;-->
+<!--&lt;!&ndash;        </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;        <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;          <td>FitZone Gym</td>&ndash;&gt;-->
+<!--&lt;!&ndash;          <td>Fitness Avenue, Downtown</td>&ndash;&gt;-->
+<!--&lt;!&ndash;          <td>ZZZ-ZZZ-ZZZZ</td>&ndash;&gt;-->
+<!--&lt;!&ndash;          <td><a href="https://fitzone.example.com">fitzone.example.com</a></td>&ndash;&gt;-->
+<!--&lt;!&ndash;        </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;        &lt;!&ndash; Add more rows if needed &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      </table>&ndash;&gt;-->
+<!--&lt;!&ndash;    {% endif %}&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+
+<!--&lt;!&ndash;</html>&ndash;&gt;-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>Heart Disease Risk Assessment</title>-->
+<!--  <style>-->
+<!--    /* Resetting default margin and padding */-->
+<!--    * {-->
+<!--      margin: 0;-->
+<!--      padding: 0;-->
+<!--      box-sizing: border-box;-->
+<!--    }-->
+
+<!--    /* Body and HTML styles */-->
+<!--    body, html {-->
+<!--      height: 100%;-->
+<!--      font-family: Arial, sans-serif;-->
+<!--    }-->
+
+<!--    /* Background image and positioning */-->
+<!--    .bg {-->
+<!--      background-image: url("static/background.png");-->
+<!--      height: 100%;-->
+<!--      background-position: center;-->
+<!--      background-repeat: no-repeat;-->
+<!--      background-size: cover;-->
+<!--      display: flex;-->
+<!--      flex-direction: column;-->
+<!--      align-items: center;-->
+<!--      justify-content: center;-->
+<!--      text-align: center;-->
+<!--    }-->
+
+<!--    /* Heading styles */-->
+<!--    h1 {-->
+<!--     color: #0e0e3f;-->
+<!--    font-weight: 500;-->
+<!--    font-size: 36px;-->
+<!--    margin-bottom: 0px;-->
+<!--    margin-right: 700px;-->
+<!--    }-->
+
+<!--    /* Subheading styles */-->
+<!--    h2 {-->
+<!--      color: #d2143a;-->
+<!--      font-size: 72px;-->
+<!--      margin-top: 10px;-->
+<!--&lt;!&ndash;      margin-bottom: 40px;&ndash;&gt;-->
+<!--          margin-bottom: 0px;-->
+<!--    margin-right: 700px;-->
+<!--    }-->
+
+<!--    /* Table styles */-->
+<!--    table {-->
+<!--      border-collapse: collapse;-->
+<!--      width: 80%;-->
+<!--      margin-top: 20px;-->
+<!--    }-->
+
+<!--    th, td {-->
+<!--      border: 1px solid #dddddd;-->
+<!--      text-align: left;-->
+<!--      padding: 8px;-->
+<!--    }-->
+
+<!--    th {-->
+<!--      background-color: #f2f2f2;-->
+<!--    }-->
+
+<!--    /* Media query for responsiveness */-->
+<!--    @media (max-width: 768px) {-->
+<!--      h1 {-->
+<!--        font-size: 24px;-->
+<!--      }-->
+<!--      h2 {-->
+<!--        font-size: 48px;-->
+<!--      }-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--  <div class="bg">-->
+<!--    <h1>{{name}},<br> your heart disease risk rate is:</h1>-->
+<!--    <h2>{{heart_risk_rate}}</h2>-->
+<!--    {% if specialist_contact %}-->
+<!--      <h1>Contact a heart specialist</h1>-->
+<!--      <table>-->
+<!--        <tr>-->
+<!--          <th>Specialist Name</th>-->
+<!--          <th>Location</th>-->
+<!--          <th>Contact Number</th>-->
+<!--          <th>Email</th>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td>Dr. Anil Gupta</td>-->
+<!--          <td>Cardiology Center, Mahal</td>-->
+<!--          <td>XXX-XXX-XXXX</td>-->
+<!--          <td>john.smith@example.com</td>-->
+<!--        </tr>-->
+<!--        &lt;!&ndash; Add more rows if needed &ndash;&gt;-->
+<!--      </table>-->
+<!--    {% else %}-->
+<!--      <h1>Visit a yoga or gym center</h1>-->
+<!--      <table>-->
+<!--        <tr>-->
+<!--          <th>Center Name</th>-->
+<!--          <th>Location</th>-->
+<!--          <th>Contact Number</th>-->
+<!--          <th>Website</th>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td>Yoga Zen</td>-->
+<!--          <td> nagpur</td>-->
+<!--          <td>YYY-YYY-YYYY</td>-->
+<!--          <td><a href="https://yogazen.example.com">yogazen.example.com</a></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td>FitZone Gym</td>-->
+<!--          <td>Fitness Avenue, Ramtek</td>-->
+<!--          <td>ZZZ-ZZZ-ZZZZ</td>-->
+<!--          <td><a href="https://fitzone.example.com">fitzone.example.com</a></td>-->
+<!--        </tr>-->
+<!--        &lt;!&ndash; Add more rows if needed &ndash;&gt;-->
+<!--      </table>-->
+<!--    {% endif %}-->
+<!--  </div>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heart Disease Risk Assessment</title>
+  <style>
+    /* Resetting default margin and padding */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body and HTML styles */
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden; /* Prevent horizontal scrolling */
+    }
+.container{
+    background: sandybrown;
+    border: 1px solid black;
+    }
+
+
+
+
+    /* Background image and positioning */
+    .bg {
+      background-image: url("static/bacnd.png");
+      height: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative; /* Ensure that the content is positioned relative to this container */
+      z-index: 0; /* Set a lower z-index to keep the background behind other elements */
+    }
+
+    /* Heading styles */
+    h1 {
+      color: #0e0e3f;
+      font-weight: 500;
+      font-size: 36px;
+      margin-bottom: 0px;
+    }
+
+    /* Subheading styles */
+    h2 {
+      color: #d2143a;
+      font-size: 72px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    /* Table container styles */
+    .table-container {
+      background-color: rgba(255, 255, 255, 0.8); /* Add transparency to make the table readable */
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      position: relative; /* Ensure that the table is positioned relative to this container */
+      z-index: 1; /* Set a higher z-index to keep the table above the background */
+    }
+
+    /* Table styles */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    /* Media query for responsiveness */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 24px;
+      }
+      h2 {
+        font-size: 48px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg">
+    <div class="container">
+      <h1>{{name}},<br> your heart disease risk rate is:</h1>
+      <h2>{{heart_risk_rate}}</h2>
+      <div class="table-container">
+        <p style="font-weight: 700;margin-right: 720px;margin-bottom: 12px;"><a href="/diet">Heart-Healthy Diet Plans</a></p>
+        {% if specialist_contact %}
+        <h3>Contact a heart specialist</h3>
+        <table>
+          <tr>
+            <th>Specialist Name</th>
+            <th>Location</th>
+            <th>Contact Number</th>
+            <th>Email</th>
+          </tr>
+          <tr>
+            <td>Dr. John Smith</td>
+            <td>Cardiology Center, Main Street,Nagpur</td>
+            <td>+917987987098</td>
+            <td>john.smith@example.com</td>
+          </tr>
+          <tr>
+            <td>Dr. Sarah Doe</td>
+            <td>Cardiology Clinic, Park Avenue,Nagpur</td>
+            <td>+917987987543</td>
+            <td>sarah.doe@example.com</td>
+          </tr>
+          <!-- Add more doctors if needed -->
+        </table>
+        {% else %}
+        <h3>Visit a yoga or gym center</h3>
+        <table>
+          <tr>
+            <th>Center Name</th>
+            <th>Location</th>
+            <th>Contact Number</th>
+            <th>Website</th>
+          </tr>
+          <tr>
+            <td>Yoga Zen</td>
+            <td>Wellness Street, Nagpur</td>
+            <td>+917987987982</td>
+            <td><a href="https://yogazen.example.com">yogazen.example.com</a></td>
+          </tr>
+          <tr>
+            <td>FitZone Gym</td>
+            <td>Fitness Avenue, Nagpur</td>
+            <td>+917987987123</td>
+            <td><a href="https://fitzone.example.com">fitzone.example.com</a></td>
+          </tr>
+          <tr>
+            <td>Yoga Bliss</td>
+            <td>Main Road, Nagpur</td>
+            <td>+917987987000</td>
+            <td><a href="https://yogabliss.example.com">yogabliss.example.com</a></td>
+          </tr>
+          <tr>
+            <td>Power Gym</td>
+            <td>Central Avenue, Nagpur</td>
+            <td>+917987987111</td>
+            <td><a href="https://powergym.example.com">powergym.example.com</a></td>
+          </tr>
+          <tr>
+            <td>Nature's Yoga</td>
+            <td>Station Road, Nagpur</td>
+            <td>+917987987123</td>
+            <td><a href="https://naturesyoga.example.com">naturesyoga.example.com</a></td>
+          </tr>
+          <!-- Add more gyms and yoga centers if needed -->
+        </table>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
